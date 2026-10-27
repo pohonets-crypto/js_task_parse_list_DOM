@@ -2,11 +2,13 @@
 
 // write code here
 
+function getSalary(salaryString) {
+  return Number(salaryString.dataset.salary.replace(/[$,]/g, ''));
+}
+
 function sortList(listObj) {
   const items = [...listObj.children].sort(
-    (a, b) =>
-      Number(b.dataset.salary.replace(/[$,]/g, '')) -
-      Number(a.dataset.salary.replace(/[$,]/g, '')),
+    (a, b) => getSalary(b) - getSalary(a),
   );
 
   listObj.append(...items);
@@ -16,7 +18,7 @@ function getEmployees(listObj) {
   return [...listObj.children].map((item) => ({
     name: item.textContent.trim(),
     position: item.dataset.position,
-    salary: Number(item.dataset.salary.replace(/[$,]/g, '')),
+    salary: getSalary(item),
     age: Number(item.dataset.age),
   }));
 }
